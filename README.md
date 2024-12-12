@@ -1,2 +1,2 @@
-# SwinOLO
-Swin and YOLO
+# MMDetection-Demo
+check the demo folder for examples
