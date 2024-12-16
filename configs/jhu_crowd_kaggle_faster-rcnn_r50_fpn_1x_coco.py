@@ -11,24 +11,41 @@ param_scheduler = [
         gamma=0.1)
 ]
 
-
 data_root = '/kaggle/working/JHU-CROWD++-2/'
 
 train_dataloader = dict(
     batch_size=4,
     dataset=dict(
         ann_file=data_root + 'train/_annotations.coco.json',
-        data_prefix=dict(img=data_root + 'train/')))
+        data_prefix=dict(img=data_root + 'train/'),
+        metainfo=dict(
+            classes=('person',),  # Replace with your class name(s)
+            palette=[(220, 20, 60)],  # RGB colors for visualization
+        )
+    )
+)
 
 val_dataloader = dict(
     dataset=dict(
         ann_file=data_root + 'valid/_annotations.coco.json',
-        data_prefix=dict(img=data_root + 'valid/')))
+        data_prefix=dict(img=data_root + 'valid/'),
+        metainfo=dict(
+            classes=('person',),  # Replace with your class name(s)
+            palette=[(220, 20, 60)],
+        )
+    )
+)
 
 test_dataloader = dict(
     dataset=dict(
         ann_file=data_root + 'test/_annotations.coco.json',
-        data_prefix=dict(img=data_root + 'test/')))
+        data_prefix=dict(img=data_root + 'test/'),
+        metainfo=dict(
+            classes=('person',),  # Replace with your class name(s)
+            palette=[(220, 20, 60)],
+        )
+    )
+)
 
 model = dict(
     roi_head=dict(
