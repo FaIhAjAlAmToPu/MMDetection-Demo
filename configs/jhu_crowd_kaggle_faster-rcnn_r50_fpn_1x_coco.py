@@ -66,14 +66,51 @@ test_dataloader = dict(
 model = dict(
     type='FasterRCNN',
     backbone=dict(type='ResNet', depth=50, init_cfg=dict(type='Pretrained', checkpoint='torchvision://resnet50')),
-    rpn_head=dict(type='RPNHead'),
+    neck=dict(
+        type='FPN',
+        in_channels=[256, 512, 1024, 2048],
+        out_channels=256,
+        num_outs=5
+    ),
+    rpn_head=dict(
+        type='RPNHead',
+        anchor_generator=dict(
+            type='AnchorGenerator',
+            scales=[8],  # Smaller anchors for small objects
+            ratios=[0.5, 1.0, 2.0],
+            strides=[4, 8, 16, 32, 64]
+        ),
+        bbox_coder=dict(
+            type='DeltaXYWHBBoxCoder',
+            target_means=[.0, .0, .0, .0],
+            target_stds=[1.0, 1.0, 1.0, 1.0]
+        ),
+        loss_cls=dict(type='CrossEntropyLoss', use_sigmoid=True, loss_weight=1.0),
+        loss_bbox=dict(type='L1Loss', loss_weight=1.0)
+    ),
     roi_head=dict(
         type='StandardRoIHead',
-        bbox_head=dict(num_classes=1)  # Number of classes in the dataset
-    ),
-    train_cfg=dict(
-        rpn=dict(assigner=dict(type='MaxIoUAssigner', iou_calculator=dict(type='BboxOverlaps2D'))),
-        rcnn=dict(assigner=dict(type='MaxIoUAssigner', iou_calculator=dict(type='BboxOverlaps2D')))
+        bbox_roi_extractor=dict(
+            type='SingleRoIExtractor',
+            roi_layer=dict(type='RoIAlign', output_size=7, sampling_ratio=2),
+            out_channels=256,
+            featmap_strides=[4, 8, 16, 32]
+        ),
+        bbox_head=dict(
+            type='Shared2FCBBoxHead',
+            in_channels=256,
+            fc_out_channels=1024,
+            roi_feat_size=7,
+            num_classes=1,  # Single class for detection
+            bbox_coder=dict(
+                type='DeltaXYWHBBoxCoder',
+                target_means=[0.0, 0.0, 0.0, 0.0],
+                target_stds=[0.1, 0.1, 0.2, 0.2]
+            ),
+            reg_class_agnostic=False,
+            loss_cls=dict(type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0),
+            loss_bbox=dict(type='L1Loss', loss_weight=1.0)
+        )
     )
 )
 
@@ -115,3 +152,7 @@ default_hooks = dict(
 )
 
 work_dir = '/kaggle/working/faster_rcnn_jhu_crowd'
+
+optim_wrapper = dict(
+    optimizer=optimizer
+)
