@@ -5,6 +5,23 @@ _base_ = [
     '../_base_/default_runtime.py'
 ]
 
+# Define the optimizer in the config
+optimizer = dict(
+    type='Adam',
+    lr=0.0001,  # You can adjust the learning rate based on your needs
+    weight_decay=0.0001  # Typically a small weight decay to avoid overfitting
+)
+
+# Define the learning rate scheduler (optional)
+lr_config = dict(
+    policy='step',
+    step=[30, 40],  # Change the step according to the number of epochs
+    gamma=0.1
+)
+
+# Keep the rest of the model and training config as it is
+
+
 # Paths for data
 data_root = '/kaggle/working/JHU-CROWD++-2/'
 
