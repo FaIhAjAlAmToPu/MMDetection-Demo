@@ -94,7 +94,12 @@ default_hooks = dict(
 )
 
 # Training configuration
-train_cfg = dict(max_epochs=50)
+train_cfg = dict(
+    max_epochs=50,
+    grad_clip=dict(max_norm=35, norm_type=2),  # Optional: add gradient clipping to avoid exploding gradients
+    accumulate_gradients=2  # Accumulate gradients over 2 iterations
+)
+
 
 # Directory to save outputs
 work_dir = '/kaggle/working/faster_rcnn_jhu_crowd'
