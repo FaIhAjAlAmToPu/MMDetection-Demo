@@ -4,12 +4,12 @@ _base_ = [
     '../_base_/schedules/schedule_1x.py', '../_base_/default_runtime.py'
 ]
 
-param_scheduler = [
-    dict(
-        type='StepLR',
-        step=[30, 40],  # Reduce learning rate at these epochs
-        gamma=0.1)
-]
+# param_scheduler = [
+#     dict(
+#         type='StepLR',
+#         step=[30, 40],  # Reduce learning rate at these epochs
+#         gamma=0.1)
+# ]
 
 data_root = '/kaggle/working/JHU-CROWD++-2/'
 
