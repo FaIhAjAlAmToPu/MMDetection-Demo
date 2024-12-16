@@ -10,7 +10,7 @@ data_root = '/kaggle/working/JHU-CROWD++-2/'
 
 # Define train, validation, and test dataloaders
 train_dataloader = dict(
-    batch_size=4,
+    batch_size=1,
     dataset=dict(
         ann_file=data_root + 'train/_annotations.coco.json',
         data_prefix=dict(img=data_root + 'train/'),
