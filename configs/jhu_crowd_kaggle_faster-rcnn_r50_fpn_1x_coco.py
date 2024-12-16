@@ -94,11 +94,7 @@ default_hooks = dict(
 )
 
 # Training configuration
-train_cfg = dict(
-    max_epochs=50,
-    grad_clip=dict(max_norm=35, norm_type=2),  # Optional: add gradient clipping to avoid exploding gradients
-    accumulate_gradients=2  # Accumulate gradients over 2 iterations
-)
+train_cfg = dict(max_epochs=50)
 
 
 # Directory to save outputs
