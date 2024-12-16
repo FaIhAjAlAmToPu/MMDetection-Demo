@@ -19,7 +19,7 @@ train_dataloader = dict(
         ann_file=data_root + 'train/_annotations.coco.json',
         data_prefix=dict(img=data_root + 'train/'),
         metainfo=dict(
-            classes=('person',),  # Replace with your class name(s)
+            classes=('head',),  # Replace with your class name(s)
             palette=[(220, 20, 60)],  # RGB colors for visualization
         )
     )
@@ -30,7 +30,7 @@ val_dataloader = dict(
         ann_file=data_root + 'valid/_annotations.coco.json',
         data_prefix=dict(img=data_root + 'valid/'),
         metainfo=dict(
-            classes=('person',),  # Replace with your class name(s)
+            classes=('head',),  # Replace with your class name(s)
             palette=[(220, 20, 60)],
         )
     )
@@ -41,7 +41,7 @@ test_dataloader = dict(
         ann_file=data_root + 'test/_annotations.coco.json',
         data_prefix=dict(img=data_root + 'test/'),
         metainfo=dict(
-            classes=('person',),  # Replace with your class name(s)
+            classes=('head',),  # Replace with your class name(s)
             palette=[(220, 20, 60)],
         )
     )
