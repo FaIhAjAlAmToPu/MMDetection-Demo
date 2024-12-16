@@ -21,7 +21,7 @@ train_dataloader = dict(
         pipeline=[
             dict(type='LoadImageFromFile'),
             dict(type='LoadAnnotations', with_bbox=True),
-            dict(type='Resize', scale=(640, 640), keep_ratio=False),  # Resize images to 640x640
+            dict(type='Resize', scale=(200, 200), keep_ratio=True),  # Resize images to 640x640
             dict(type='RandomFlip', prob=0.5),
             dict(type='PackDetInputs')
         ]
@@ -38,7 +38,7 @@ val_dataloader = dict(
         ),
         pipeline=[
             dict(type='LoadImageFromFile'),
-            dict(type='Resize', scale=(640, 640), keep_ratio=False),  # Resize images to 640x640
+            dict(type='Resize', scale=(200, 200), keep_ratio=True),  # Resize images to 640x640
             dict(
                 type='PackDetInputs',
                 meta_keys=('img_id', 'img_path', 'ori_shape', 'img_shape', 'scale_factor')
@@ -57,7 +57,7 @@ test_dataloader = dict(
         ),
         pipeline=[
             dict(type='LoadImageFromFile'),
-            dict(type='Resize', scale=(640, 640), keep_ratio=False),  # Resize images to 640x640
+            dict(type='Resize', scale=(640, 640), keep_ratio=True),  # Resize images to 640x640
             dict(
                 type='PackDetInputs',
                 meta_keys=('img_id', 'img_path', 'ori_shape', 'img_shape', 'scale_factor')
